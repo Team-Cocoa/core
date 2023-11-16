@@ -7,6 +7,7 @@ import eu.cloudnetservice.driver.permission.PermissionManagement;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
+import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.plugin.PluginManager;
@@ -44,11 +45,16 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
 
     @Override
     public void onLoad() {
-        pluginManager.registerEvents(new AntiCheatListener(), instance);
+        AsyncDetector.setMainThread(Thread.currentThread());
+        loadListeners();
     }
 
     @Override
     public void onDisable() {
 
+    }
+
+    private void loadListeners() {
+        pluginManager.registerEvents(new AntiCheatListener(), instance);
     }
 }
