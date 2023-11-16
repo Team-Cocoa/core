@@ -2,14 +2,18 @@ package kr.teamcocoa.core.bukkit.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import kr.teamcocoa.core.utils.Pair;
+import kr.teamcocoa.core.utils.StringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.UUID;
 
 public class ItemUtils {
@@ -37,6 +41,20 @@ public class ItemUtils {
         itemMeta.displayName(Component.empty());
         itemMeta.addItemFlags(new ItemFlag[] { ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES });
         itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public static ItemStack name(ItemStack itemStack, String name) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.displayName(Component.text(StringUtils.color(name)));
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public static ItemStack enchant(ItemStack itemStack, List<Pair<Enchantment, Integer>> enchantments) {
+        for (Pair<Enchantment, Integer> enchantment : enchantments) {
+            itemStack.addEnchantment(enchantment.getFirst(), enchantment.getSecond());
+        }
         return itemStack;
     }
 
