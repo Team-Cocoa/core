@@ -1,7 +1,5 @@
 package kr.teamcocoa.core.permission;
 
-import java.util.Arrays;
-
 public class PermissionValidator {
 
     public static boolean validate(Permission userPermission, Permission required) {
