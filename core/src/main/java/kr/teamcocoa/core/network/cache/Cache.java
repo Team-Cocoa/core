@@ -49,4 +49,8 @@ public class Cache<K, V> {
         cache.remove(key);
     }
 
+    public void clearCache() {
+        cache.clear();
+    }
+
 }
