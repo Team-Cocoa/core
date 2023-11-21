@@ -24,6 +24,7 @@ class ApiMojangControllerTest {
         }
         catch (ExecutionException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
+            fail();
         }
     }
 
@@ -38,6 +39,7 @@ class ApiMojangControllerTest {
         }
         catch (ExecutionException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
+            fail();
         }
     }
 
