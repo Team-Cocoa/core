@@ -7,6 +7,9 @@ public class PermissionValidator {
     }
 
     public static boolean validate(Permission userPermission, String rawPermission) {
+        if(userPermission.getPermission().equals("*")) {
+            return true;
+        }
         if(userPermission.getPermission().equals(rawPermission)) {
             return true;
         }
