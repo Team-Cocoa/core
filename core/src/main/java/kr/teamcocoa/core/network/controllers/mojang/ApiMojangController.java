@@ -1,4 +1,4 @@
-package kr.teamcocoa.core.network.controllers;
+package kr.teamcocoa.core.network.controllers.mojang;
 
 import kr.teamcocoa.core.network.cache.Cache;
 import kr.teamcocoa.core.network.uuid.UUIDResultDto;

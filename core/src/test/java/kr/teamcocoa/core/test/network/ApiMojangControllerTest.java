@@ -1,6 +1,6 @@
 package kr.teamcocoa.core.test.network;
 
-import kr.teamcocoa.core.network.controllers.ApiMojangController;
+import kr.teamcocoa.core.network.controllers.mojang.ApiMojangController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
