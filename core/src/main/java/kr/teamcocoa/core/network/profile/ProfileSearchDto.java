@@ -1,4 +1,4 @@
-package kr.teamcocoa.core.network.head;
+package kr.teamcocoa.core.network.profile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class HeadSearchDto {
+public class ProfileSearchDto {
 
     @SerializedName("id")
     private String id;
