@@ -3,6 +3,10 @@ package kr.teamcocoa.core.utils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtils {
 
@@ -19,5 +23,18 @@ public class StringUtils {
         return new String(b);
     }
 
+    public static String getTimestampToDate(long time) {
+        Date date = new Date(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+9"));
+        String formattedDate = sdf.format(date);
+        return formattedDate + " (UTC +9)";
+    }
+
+    public static String getTimeFormat(int sec) {
+        String minute = "0" + sec / 60;
+        String second = "0" + sec % 60;
+        return minute.substring(minute.length() - 2) + ":" + second.substring(second.length() - 2);
+    }
 
 }
