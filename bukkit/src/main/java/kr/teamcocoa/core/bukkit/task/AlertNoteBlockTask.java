@@ -22,7 +22,7 @@ public class AlertNoteBlockTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if(i < 20) {
+        if(i < 10) {
             cancel();
             return;
         }
