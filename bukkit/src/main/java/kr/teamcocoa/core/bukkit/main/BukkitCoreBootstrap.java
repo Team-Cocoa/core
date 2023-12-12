@@ -7,6 +7,8 @@ import eu.cloudnetservice.driver.permission.PermissionManagement;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
+import kr.teamcocoa.core.bukkit.utils.BukkitPluginMessageUtils;
+import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
@@ -47,11 +49,13 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     public void onLoad() {
         AsyncDetector.setMainThread(Thread.currentThread());
         loadListeners();
+
+        getInstance().getServer().getMessenger().registerOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
     }
 
     @Override
     public void onDisable() {
-
+        getInstance().getServer().getMessenger().unregisterOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
     }
 
     private void loadListeners() {
