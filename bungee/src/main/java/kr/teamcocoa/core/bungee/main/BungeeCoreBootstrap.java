@@ -5,6 +5,7 @@ import dev.derklaro.aerogel.Singleton;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import kr.teamcocoa.core.bungee.listener.PluginMessageListener;
+import kr.teamcocoa.core.config.StringConfig;
 import lombok.Getter;
 import lombok.NonNull;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -13,7 +14,7 @@ import net.md_5.bungee.api.plugin.PluginManager;
 
 @Singleton
 @PlatformPlugin(
-        platform = "bungee",
+        platform = "bungeecord",
         name = "TeamCocoa-Core",
         version = "1.0",
         authors = "fixca",
@@ -38,6 +39,12 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
 
     @Override
     public void onLoad() {
+        instance.getProxy().registerChannel(StringConfig.MESSAGE_CHANNEL);
         pluginManager.registerListener(instance, new PluginMessageListener());
+    }
+
+    @Override
+    public void onDisable() {
+        instance.getProxy().unregisterChannel(StringConfig.MESSAGE_CHANNEL);
     }
 }
