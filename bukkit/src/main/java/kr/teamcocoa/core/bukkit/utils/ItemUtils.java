@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,8 @@ public class ItemUtils {
             profileField = meta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(meta, profile);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+        }
+        catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
         head.setItemMeta(meta);
@@ -57,6 +59,19 @@ public class ItemUtils {
         for (Pair<Enchantment, Integer> enchantment : enchantments) {
             itemStack.addEnchantment(enchantment.getFirst(), enchantment.getSecond());
         }
+        return itemStack;
+    }
+
+    public static ItemStack lore(ItemStack itemStack, List<String> lore) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        List<Component> componentLore = new ArrayList<>(lore.size());
+        for (String string : lore) {
+            componentLore.add(Component.text(StringUtils.color(string)));
+        }
+        itemMeta.lore(componentLore);
+
+        itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
 
