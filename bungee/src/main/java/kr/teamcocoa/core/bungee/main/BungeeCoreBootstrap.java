@@ -3,7 +3,12 @@ package kr.teamcocoa.core.bungee.main;
 import dev.derklaro.aerogel.Inject;
 import dev.derklaro.aerogel.Singleton;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
+import eu.cloudnetservice.ext.platforminject.api.stereotype.Command;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
+import kr.teamcocoa.core.bungee.commands.DiscordCommand;
+import kr.teamcocoa.core.bungee.commands.RuleCommand;
+import kr.teamcocoa.core.bungee.commands.StoreCommand;
+import kr.teamcocoa.core.bungee.commands.TwitterCommand;
 import kr.teamcocoa.core.bungee.listener.PluginMessageListener;
 import kr.teamcocoa.core.config.StringConfig;
 import lombok.Getter;
@@ -18,6 +23,12 @@ import net.md_5.bungee.api.plugin.PluginManager;
         name = "TeamCocoa-Core",
         version = "1.0",
         authors = "fixca",
+        commands = {
+                @Command(name = "discord"),
+                @Command(name = "rule"),
+                @Command(name = "store"),
+                @Command(name = "twitter")
+        },
         pluginFileNames = "bungee.yml"
 )
 public class BungeeCoreBootstrap implements PlatformEntrypoint {
@@ -41,6 +52,11 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
     public void onLoad() {
         instance.getProxy().registerChannel(StringConfig.MESSAGE_CHANNEL);
         pluginManager.registerListener(instance, new PluginMessageListener());
+
+        pluginManager.registerCommand(instance, new DiscordCommand("discord"));
+        pluginManager.registerCommand(instance, new RuleCommand("rules"));
+        pluginManager.registerCommand(instance, new StoreCommand("store"));
+        pluginManager.registerCommand(instance, new TwitterCommand("twitter"));
     }
 
     @Override
