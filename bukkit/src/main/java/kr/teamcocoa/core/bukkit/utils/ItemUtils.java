@@ -75,4 +75,9 @@ public class ItemUtils {
         return itemStack;
     }
 
+    public static boolean equalsTitle(ItemStack itemStack, String title) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        return ComponentUtils.componentEquals(itemMeta.displayName(), title);
+    }
+
 }
