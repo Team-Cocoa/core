@@ -5,6 +5,7 @@ import dev.derklaro.aerogel.Inject;
 import dev.derklaro.aerogel.Singleton;
 import eu.cloudnetservice.driver.permission.PermissionManagement;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
+import eu.cloudnetservice.ext.platforminject.api.stereotype.Dependency;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
 import kr.teamcocoa.core.bukkit.utils.BukkitPluginMessageUtils;
@@ -12,6 +13,7 @@ import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,7 +24,10 @@ import org.bukkit.plugin.java.JavaPlugin;
         version = "1.0",
         authors = "fixca",
         pluginFileNames = "plugin.yml",
-        api = "1.13"
+        api = "1.13",
+        dependencies = {
+                @Dependency(name = "spark")
+        }
 )
 public class BukkitCoreBootstrap implements PlatformEntrypoint {
 
@@ -51,6 +56,15 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
         loadListeners();
 
         getInstance().getServer().getMessenger().registerOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
+
+        Bukkit.getScheduler().runTaskLater(instance, () -> {
+            for(String command : new String[] {
+                    "spark tickmonitor",
+                    "spark profiler"}) {
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+            }
+        }, 100L);
+
     }
 
     @Override
