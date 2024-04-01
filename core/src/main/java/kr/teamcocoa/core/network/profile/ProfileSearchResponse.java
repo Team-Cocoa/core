@@ -3,7 +3,7 @@ package kr.teamcocoa.core.network.profile;
 import com.google.gson.JsonObject;
 import kr.teamcocoa.core.network.controllers.mojang.SessionMojangController;
 import kr.teamcocoa.core.network.model.MojangProfile;
-import kr.teamcocoa.retrofit.IResponse;
+import kr.teamcocoa.core.retrofit.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import retrofit2.Call;

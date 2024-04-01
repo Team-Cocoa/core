@@ -1,7 +1,7 @@
 package kr.teamcocoa.core.network.uuid;
 
 import kr.teamcocoa.core.network.controllers.mojang.ApiMojangController;
-import kr.teamcocoa.retrofit.IResponse;
+import kr.teamcocoa.core.retrofit.IResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import retrofit2.Call;
