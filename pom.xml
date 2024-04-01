@@ -13,6 +13,7 @@
         <module>bukkit</module>
         <module>jar</module>
         <module>bungee</module>
+        <module>mysql</module>
     </modules>
 
     <properties>
