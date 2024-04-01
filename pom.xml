@@ -14,6 +14,7 @@
         <module>jar</module>
         <module>bungee</module>
         <module>mysql</module>
+        <module>mongo</module>
     </modules>
 
     <properties>
