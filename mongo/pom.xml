@@ -36,8 +36,6 @@
                                     <pattern>org.mongodb</pattern>
                                     <shadedPattern>kr.teamcocoa.core.mongo.jdbc</shadedPattern>
                                 </relocation>
-                                <relocation>
-                                </relocation>
                             </relocations>
                             <minimizeJar>false</minimizeJar>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
