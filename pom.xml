@@ -15,6 +15,7 @@
         <module>bungee</module>
         <module>mysql</module>
         <module>mongo</module>
+        <module>retrofit</module>
     </modules>
 
     <properties>
