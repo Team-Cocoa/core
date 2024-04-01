@@ -9,6 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>kr.teamcocoa.system</groupId>
     <artifactId>mysql</artifactId>
 
     <properties>
@@ -33,7 +34,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.mysql</pattern>
-                                    <shadedPattern>kr.teamcocoa.mysql.jdbc</shadedPattern>
+                                    <shadedPattern>kr.teamcocoa.core.mysql.jdbc</shadedPattern>
                                 </relocation>
                                 <relocation>
                                 </relocation>
@@ -53,6 +54,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>kr.teamcocoa.system</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

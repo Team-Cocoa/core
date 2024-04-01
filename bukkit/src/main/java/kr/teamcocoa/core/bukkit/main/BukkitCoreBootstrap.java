@@ -8,8 +8,9 @@ import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.Dependency;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
-import kr.teamcocoa.core.bukkit.utils.BukkitPluginMessageUtils;
 import kr.teamcocoa.core.config.StringConfig;
+import kr.teamcocoa.core.mysql.MySQLManager;
+import kr.teamcocoa.core.mysql.pool.ConnectionPoolManager;
 import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
@@ -53,6 +54,9 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     @Override
     public void onLoad() {
         AsyncDetector.setMainThread(Thread.currentThread());
+        MySQLManager.startKeepAlive();
+        ConnectionPoolManager.startKeepAlive();
+
         loadListeners();
 
         getInstance().getServer().getMessenger().registerOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
@@ -70,6 +74,10 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     @Override
     public void onDisable() {
         getInstance().getServer().getMessenger().unregisterOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
+        MySQLManager.stopKeepAlive();
+        MySQLManager.disconnectAllConnections();
+        ConnectionPoolManager.stopKeepAlive();
+        ConnectionPoolManager.disconnectAllConnections();
     }
 
     private void loadListeners() {

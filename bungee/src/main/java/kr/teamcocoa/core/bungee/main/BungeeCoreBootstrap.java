@@ -11,6 +11,9 @@ import kr.teamcocoa.core.bungee.commands.StoreCommand;
 import kr.teamcocoa.core.bungee.commands.TwitterCommand;
 import kr.teamcocoa.core.bungee.listener.PluginMessageListener;
 import kr.teamcocoa.core.config.StringConfig;
+import kr.teamcocoa.core.mysql.MySQLManager;
+import kr.teamcocoa.core.mysql.pool.ConnectionPoolManager;
+import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -50,6 +53,10 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
 
     @Override
     public void onLoad() {
+        AsyncDetector.setMainThread(Thread.currentThread());
+        MySQLManager.startKeepAlive();
+        ConnectionPoolManager.startKeepAlive();
+
         instance.getProxy().registerChannel(StringConfig.MESSAGE_CHANNEL);
         pluginManager.registerListener(instance, new PluginMessageListener());
 
@@ -62,5 +69,9 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
     @Override
     public void onDisable() {
         instance.getProxy().unregisterChannel(StringConfig.MESSAGE_CHANNEL);
+        MySQLManager.stopKeepAlive();
+        MySQLManager.disconnectAllConnections();
+        ConnectionPoolManager.stopKeepAlive();
+        ConnectionPoolManager.disconnectAllConnections();
     }
 }
