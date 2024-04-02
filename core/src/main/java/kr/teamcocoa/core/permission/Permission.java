@@ -20,7 +20,7 @@ public enum Permission {
     YOUTUBE_PLUS(96, "teamcocoa.youtube.plus", List.of(YOUTUBE)),
     BUILDER(97, "teamcocoa.builder", Collections.EMPTY_LIST),
     HELPER(97, "teamcocoa.helper", List.of(VIP, DEFAULT)),
-    MODERATOR(98, "teamcocoa.moderator", List.of(LEGEND, HELPER)),
+    MODERATOR(6, "teamcocoa.moderator", List.of(LEGEND, HELPER)),
     ADMIN(99, "*", Collections.EMPTY_LIST),
     DEVELOPER(100, "*", Collections.EMPTY_LIST),
     OWNER(100, "*", Collections.EMPTY_LIST);

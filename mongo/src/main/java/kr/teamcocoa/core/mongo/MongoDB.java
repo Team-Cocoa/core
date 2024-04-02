@@ -1,12 +1,9 @@
 package kr.teamcocoa.core.mongo;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
+import com.mongodb.MongoClient;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MongoDB {
@@ -14,22 +11,26 @@ public class MongoDB {
     private final static String ADDRESS = "localhost";
     private final static int PORT = 27017;
 
-    private static List<MongoClient> connections = new LinkedList<>();
+    @Getter
+    private static MongoClient connection;
 
-    public static void disconnectDatabases() {
-        for (MongoClient connection : connections) {
-            try {
-                connection.close();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+    public static void connectDatabase() {
+        if(connection != null) {
+            return;
+        }
+        connection = new MongoClient(ADDRESS, PORT);
+    }
+
+    public static void disconnectDatabase() {
+        if(connection == null) {
+            return;
+        }
+        try {
+            connection.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public static MongoClient getConnection() {
-        MongoClient connection = MongoClients.create("mongodb://" + ADDRESS + ":" + PORT);
-        connections.add(connection);
-        return connection;
-    }
 }
