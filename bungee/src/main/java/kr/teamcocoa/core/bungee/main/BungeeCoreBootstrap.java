@@ -77,8 +77,6 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
     private void loadDatabases() {
         MySQLManager.startKeepAlive();
         ConnectionPoolManager.startKeepAlive();
-
-        MongoDB.connectDatabase();
     }
 
     private void disconnectDatabases() {
@@ -87,6 +85,6 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
         ConnectionPoolManager.stopKeepAlive();
         ConnectionPoolManager.disconnectAllConnections();
 
-        MongoDB.disconnectDatabase();
+        MongoDB.disconnectDatabases();
     }
 }

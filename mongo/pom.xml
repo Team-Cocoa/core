@@ -31,12 +31,12 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.mongodb</pattern>
-                                    <shadedPattern>kr.teamcocoa.core.mongo.jdbc</shadedPattern>
-                                </relocation>
-                            </relocations>
+<!--                            <relocations>-->
+<!--                                <relocation>-->
+<!--                                    <pattern>org.mongodb</pattern>-->
+<!--                                    <shadedPattern>kr.teamcocoa.core.mongo.jdbc</shadedPattern>-->
+<!--                                </relocation>-->
+<!--                            </relocations>-->
                             <minimizeJar>false</minimizeJar>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
