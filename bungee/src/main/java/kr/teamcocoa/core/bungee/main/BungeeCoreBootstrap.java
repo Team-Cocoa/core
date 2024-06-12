@@ -9,7 +9,7 @@ import kr.teamcocoa.core.bungee.commands.DiscordCommand;
 import kr.teamcocoa.core.bungee.commands.RuleCommand;
 import kr.teamcocoa.core.bungee.commands.StoreCommand;
 import kr.teamcocoa.core.bungee.commands.TwitterCommand;
-import kr.teamcocoa.core.bungee.listener.PluginMessageListener;
+import kr.teamcocoa.core.bungee.listener.*;
 import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.mongo.MongoDB;
 import kr.teamcocoa.core.mysql.MySQLManager;
@@ -60,6 +60,7 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
 
         instance.getProxy().registerChannel(StringConfig.MESSAGE_CHANNEL);
         pluginManager.registerListener(instance, new PluginMessageListener());
+        pluginManager.registerListener(instance, new ChatListener());
 
         pluginManager.registerCommand(instance, new DiscordCommand("discord"));
         pluginManager.registerCommand(instance, new RuleCommand("rules"));
