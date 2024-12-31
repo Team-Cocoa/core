@@ -10,6 +10,8 @@ import java.util.TimeZone;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtils {
 
+    public static final String TEAMCOCOA_API_KEY = "F824047CDF49B138D1990B4DA178A16D45CE2CC7DBDDDCA02CE5AB6BD8733A8F2CAB22F298484F110D3E93A02F3A73BA49C102131C8DCCD83AB3AE2EF9F413BA";
+
     public static String color(String string) {
         char[] b = string.toCharArray();
 
