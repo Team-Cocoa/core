@@ -1,0 +1,12 @@
+{
+    "runtimeModule": false,
+    "storesSensitiveData": false,
+    "main": "kr.teamcocoa.core.cloudnet.main.CloudNetCoreBootstrap",
+    "name": "CocoaCore",
+    "group": "kr.teamcocoa",
+    "author": "fixca",
+    "version": "1.0.0",
+    "website": "https://teamcocoa.kr",
+    "description": "Core System for TeamCocoa",
+    "minJavaVersionId": 0
+  }
