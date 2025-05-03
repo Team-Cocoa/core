@@ -3,11 +3,13 @@ package kr.teamcocoa.core.bukkit.main;
 
 import dev.derklaro.aerogel.Inject;
 import dev.derklaro.aerogel.Singleton;
+import eu.cloudnetservice.driver.event.EventManager;
 import eu.cloudnetservice.driver.permission.PermissionManagement;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.Dependency;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
+import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
 import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.mongo.MongoDB;
 import kr.teamcocoa.core.mysql.MySQLManager;
@@ -41,14 +43,19 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
 
     private PluginManager pluginManager;
 
+    @Getter
+    private static EventManager cloudnetEventManager;
+
 
     @Inject
     BukkitCoreBootstrap(
             @NonNull JavaPlugin plugin,
             @NonNull PluginManager pluginManager,
-            @NonNull PermissionManagement permissionManagement) {
+            @NonNull PermissionManagement permissionManagement,
+            @NonNull EventManager cloudnetEventManager) {
         BukkitCoreBootstrap.instance = plugin;
         BukkitCoreBootstrap.permissionManagement = permissionManagement;
+        BukkitCoreBootstrap.cloudnetEventManager = cloudnetEventManager;
         this.pluginManager = pluginManager;
     }
 
@@ -79,6 +86,8 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
 
     private void loadListeners() {
         pluginManager.registerEvents(new AntiCheatListener(), instance);
+
+        cloudnetEventManager.registerListener(new CloudNetEventManager());
     }
 
     private void loadDatabases() {

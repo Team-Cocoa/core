@@ -2,6 +2,7 @@ package kr.teamcocoa.core.bungee.main;
 
 import dev.derklaro.aerogel.Inject;
 import dev.derklaro.aerogel.Singleton;
+import eu.cloudnetservice.driver.event.EventManager;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.Command;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
@@ -10,6 +11,7 @@ import kr.teamcocoa.core.bungee.commands.RuleCommand;
 import kr.teamcocoa.core.bungee.commands.StoreCommand;
 import kr.teamcocoa.core.bungee.commands.TwitterCommand;
 import kr.teamcocoa.core.bungee.listener.*;
+import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
 import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.mongo.MongoDB;
 import kr.teamcocoa.core.mysql.MySQLManager;
@@ -43,13 +45,18 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
     @Getter
     private static PluginManager pluginManager;
 
+    @Getter
+    private static EventManager cloudNetEventManager;
+
     @Inject
     public BungeeCoreBootstrap(
             @NonNull Plugin plugin,
-            @NonNull PluginManager pluginManager
+            @NonNull PluginManager pluginManager,
+            @NonNull EventManager cloudNetEventManager
     ) {
         BungeeCoreBootstrap.instance = plugin;
         BungeeCoreBootstrap.pluginManager = pluginManager;
+        BungeeCoreBootstrap.cloudNetEventManager = cloudNetEventManager;
     }
 
     @Override
@@ -66,6 +73,8 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
         pluginManager.registerCommand(instance, new RuleCommand("rules"));
         pluginManager.registerCommand(instance, new StoreCommand("store"));
         pluginManager.registerCommand(instance, new TwitterCommand("twitter"));
+
+        cloudNetEventManager.registerListener(new CloudNetEventManager());
     }
 
     @Override
