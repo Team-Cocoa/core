@@ -11,12 +11,12 @@
     <modules>
         <module>core</module>
         <module>bukkit</module>
-        <module>jar</module>
         <module>bungee</module>
         <module>mysql</module>
         <module>mongo</module>
         <module>retrofit</module>
         <module>cloudnet</module>
+        <module>jar</module>
     </modules>
 
     <properties>
