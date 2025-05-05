@@ -9,6 +9,6 @@ public abstract class CloudNetEventListener {
     
     private boolean query;
 
-    public abstract Object onEvent(byte[] byteArray);
+    public abstract Object onEvent(Object object);
 
 }

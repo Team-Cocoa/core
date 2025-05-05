@@ -54,7 +54,7 @@ public class CloudNetEventManager {
             }
         }
 
-        Object response = listener.onEvent(e.content().toByteArray());
+        Object response = listener.onEvent(DataBufConverter.byteArrayToObject(e.content().toByteArray()));
 
         if(listener.isQuery()) {
             e.binaryResponse(DataBufConverter.objectToDataBuf(response));
