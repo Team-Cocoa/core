@@ -14,9 +14,9 @@ public class CloudNetEventManager {
 
     private static HashMap<String, HashMap<String, CloudNetEventListener>> eventMap = new HashMap<>();
 
-    // TODO : 
-
-    public static void addListener(String pluginName, String listenerName, CloudNetEventListener listener) {
+    public static void addListener(CloudNetEventListener listener) {
+        String pluginName = listener.getPluginName();
+        String listenerName = listener.getListenerName();
         if(!eventMap.containsKey(pluginName)) {
             eventMap.put(pluginName, new HashMap<>());
         }
