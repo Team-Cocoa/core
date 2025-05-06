@@ -6,12 +6,14 @@ import eu.cloudnetservice.driver.event.EventManager;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.Command;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
+import eu.cloudnetservice.wrapper.configuration.WrapperConfiguration;
 import kr.teamcocoa.core.bungee.commands.DiscordCommand;
 import kr.teamcocoa.core.bungee.commands.RuleCommand;
 import kr.teamcocoa.core.bungee.commands.StoreCommand;
 import kr.teamcocoa.core.bungee.commands.TwitterCommand;
 import kr.teamcocoa.core.bungee.listener.*;
 import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
+import kr.teamcocoa.core.cloudnet.utils.CloudNetServiceUtils;
 import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.mongo.MongoDB;
 import kr.teamcocoa.core.mysql.MySQLManager;
@@ -48,20 +50,27 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
     @Getter
     private static EventManager cloudNetEventManager;
 
+    @Getter
+    private static WrapperConfiguration wrapperConfiguration;
+
     @Inject
     public BungeeCoreBootstrap(
             @NonNull Plugin plugin,
             @NonNull PluginManager pluginManager,
-            @NonNull EventManager cloudNetEventManager
+            @NonNull EventManager cloudNetEventManager,
+            @NonNull WrapperConfiguration wrapperConfiguration
     ) {
         BungeeCoreBootstrap.instance = plugin;
         BungeeCoreBootstrap.pluginManager = pluginManager;
         BungeeCoreBootstrap.cloudNetEventManager = cloudNetEventManager;
+        BungeeCoreBootstrap.wrapperConfiguration = wrapperConfiguration;
     }
 
     @Override
     public void onLoad() {
         AsyncDetector.setMainThread(Thread.currentThread());
+
+        CloudNetServiceUtils.setInitServiceName(wrapperConfiguration);
 
         loadDatabases();
 

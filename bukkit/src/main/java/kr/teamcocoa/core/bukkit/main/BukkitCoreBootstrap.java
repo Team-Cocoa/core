@@ -8,8 +8,10 @@ import eu.cloudnetservice.driver.permission.PermissionManagement;
 import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.Dependency;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
+import eu.cloudnetservice.wrapper.configuration.WrapperConfiguration;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
 import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
+import kr.teamcocoa.core.cloudnet.utils.CloudNetServiceUtils;
 import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.mongo.MongoDB;
 import kr.teamcocoa.core.mysql.MySQLManager;
@@ -46,22 +48,28 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     @Getter
     private static EventManager cloudnetEventManager;
 
+    @Getter
+    private static WrapperConfiguration wrapperConfiguration;
 
     @Inject
     BukkitCoreBootstrap(
             @NonNull JavaPlugin plugin,
             @NonNull PluginManager pluginManager,
             @NonNull PermissionManagement permissionManagement,
-            @NonNull EventManager cloudnetEventManager) {
+            @NonNull EventManager cloudnetEventManager,
+            @NonNull WrapperConfiguration wrapperConfiguration) {
         BukkitCoreBootstrap.instance = plugin;
         BukkitCoreBootstrap.permissionManagement = permissionManagement;
         BukkitCoreBootstrap.cloudnetEventManager = cloudnetEventManager;
+        BukkitCoreBootstrap.wrapperConfiguration = wrapperConfiguration;
         this.pluginManager = pluginManager;
     }
 
     @Override
     public void onLoad() {
         AsyncDetector.setMainThread(Thread.currentThread());
+
+        CloudNetServiceUtils.setInitServiceName(wrapperConfiguration);
 
         loadDatabases();
         loadListeners();
