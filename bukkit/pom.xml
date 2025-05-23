@@ -44,15 +44,11 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.github.retrooper.packetevents</pattern>
-                                    <shadedPattern>kr.teamcocoa.core.packetevents.api</shadedPattern>
+                                    <shadedPattern>kr.teamcocoa.core.bukkit.packetevents.api</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>io.github.retrooper.packetevents</pattern>
-                                    <shadedPattern>kr.teamcocoa.core.packetevents.impl</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>net.kyori</pattern>
-                                    <shadedPattern>kr.teamcocoa.core.packetevents.kyori</shadedPattern>
+                                    <shadedPattern>kr.teamcocoa.core.bukkit.packetevents.impl</shadedPattern>
                                 </relocation>
                             </relocations>
                             <minimizeJar>false</minimizeJar>
