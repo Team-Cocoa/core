@@ -1,6 +1,5 @@
 package kr.teamcocoa.core.utils;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import com.google.gson.Gson;
