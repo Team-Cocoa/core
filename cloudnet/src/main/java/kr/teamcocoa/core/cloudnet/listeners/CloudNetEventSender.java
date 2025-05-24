@@ -1,5 +1,7 @@
 package kr.teamcocoa.core.cloudnet.listeners;
 
+import java.io.NotSerializableException;
+import java.io.Serializable;
 import java.util.function.Consumer;
 
 import eu.cloudnetservice.driver.channel.ChannelMessage;
@@ -20,13 +22,19 @@ public class CloudNetEventSender {
 
     private String listenerName;
 
-    @Setter
     private Object buffer;
 
     private Targets taskTarget;
 
     @Setter
     private Consumer<Object> queryCallBack;
+
+    public void setBuffer(Object buffer) throws NotSerializableException {
+        if(!(buffer instanceof Serializable)) {
+            throw new NotSerializableException();
+        }
+        this.buffer = buffer;
+    }
 
     public CloudNetEventSender(
         String pluginName,
