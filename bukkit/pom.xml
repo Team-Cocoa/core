@@ -50,14 +50,6 @@
                                     <pattern>io.github.retrooper.packetevents</pattern>
                                     <shadedPattern>kr.teamcocoa.core.bukkit.packetevents.impl</shadedPattern>
                                 </relocation>
-                                <relocation>
-                                    <pattern>net.kyori</pattern>
-                                    <shadedPattern>kr.teamcocoa.core.bukkit.packetevents.libs.net.kyori</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.google.gson</pattern>
-                                    <shadedPattern>kr.teamcocoa.core.bukkit.packetevents.libs.com.google.gson</shadedPattern>
-                                </relocation>
                             </relocations>
                             <minimizeJar>false</minimizeJar>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
