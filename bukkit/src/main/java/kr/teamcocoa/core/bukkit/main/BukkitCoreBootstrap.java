@@ -19,6 +19,7 @@ import kr.teamcocoa.core.mysql.pool.ConnectionPoolManager;
 import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
+import net.minecraft.server.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -112,5 +113,9 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
         ConnectionPoolManager.disconnectAllConnections();
 
         MongoDB.disconnectDatabase();
+    }
+
+    public double[] getTPS() {
+        return MinecraftServer.getServer().recentTps;
     }
 }
