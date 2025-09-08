@@ -80,7 +80,7 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
         Bukkit.getScheduler().runTaskLater(instance, () -> {
             for(String command : new String[] {
                     "spark tickmonitor",
-                    "spark profiler"}) {
+                    "spark profiler start"}) {
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
             }
         }, 100L);

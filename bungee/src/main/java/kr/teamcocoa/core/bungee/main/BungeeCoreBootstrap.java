@@ -24,6 +24,8 @@ import lombok.NonNull;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 
+import java.util.concurrent.TimeUnit;
+
 
 @Singleton
 @PlatformPlugin(
@@ -84,6 +86,10 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
         pluginManager.registerCommand(instance, new TwitterCommand("twitter"));
 
         cloudNetEventManager.registerListener(new CloudNetEventManager());
+
+        instance.getProxy().getScheduler().schedule(instance, () -> {
+            pluginManager.dispatchCommand(instance.getProxy().getConsole(), "sparkb profiler start");
+        }, 1, TimeUnit.SECONDS);
     }
 
     @Override
