@@ -51,6 +51,16 @@ public class PluginMessageListener implements Listener {
                 case "server_move" -> {
                     ServerMoveHandler.handle(object);
                 }
+                case "ban_player" -> {
+
+                    String playerName = object.get("player").getAsString();
+                    String reason = object.get("reason").getAsString();
+
+                    ProxyServer.getInstance().getPluginManager().dispatchCommand(
+                            ProxyServer.getInstance().getConsole(),
+                        MessageFormat.format(
+                                "tempipban {0} 30d {1}", playerName, reason));
+                }
             }
 
         }
