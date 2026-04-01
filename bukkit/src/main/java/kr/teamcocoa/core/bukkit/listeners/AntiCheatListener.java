@@ -3,10 +3,10 @@ package kr.teamcocoa.core.bukkit.listeners;
 import kr.teamcocoa.core.bukkit.events.anticheat.AntiCheatFlag;
 import kr.teamcocoa.core.bukkit.events.anticheat.AntiCheatFlagEvent;
 import kr.teamcocoa.core.bukkit.events.anticheat.AntiCheatPunishEvent;
+import kr.teamcocoa.core.bukkit.main.BukkitCoreBootstrap;
 import me.frep.vulcan.api.check.Check;
 import me.frep.vulcan.api.event.VulcanFlagEvent;
 import me.frep.vulcan.api.event.VulcanPunishEvent;
-import net.minecraft.server.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ public class AntiCheatListener implements Listener {
     public void onFlag(VulcanFlagEvent e) {
         Player player = e.getPlayer();
         Check rawCheck = e.getCheck();
-        double tps = MinecraftServer.getServer().recentTps[0];
+        double tps = BukkitCoreBootstrap.getTPS()[0];
         AntiCheatFlag flag = new AntiCheatFlag(
                 rawCheck.getName(),
                 Character.toString(rawCheck.getType()),

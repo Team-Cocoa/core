@@ -12,8 +12,8 @@
     <artifactId>bukkit</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -51,41 +51,6 @@
                                     <shadedPattern>kr.teamcocoa.core.bukkit.packetevents.impl</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <minimizeJar>false</minimizeJar>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>net.md-5</groupId>
-                <artifactId>specialsource-maven-plugin</artifactId>
-                <version>1.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>remap</goal>
-                        </goals>
-                        <id>remap-obf</id>
-                        <configuration>
-                            <srgIn>org.spigotmc:minecraft-server:1.18.2-R0.1-SNAPSHOT:txt:maps-mojang</srgIn>
-                            <reverse>true</reverse>
-                            <remappedDependencies>org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT:jar:remapped-mojang</remappedDependencies>
-                            <remappedArtifactAttached>true</remappedArtifactAttached>
-                            <remappedClassifierName>remapped-obf</remappedClassifierName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>remap</goal>
-                        </goals>
-                        <id>remap-spigot</id>
-                        <configuration>
-                            <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>
-                            <srgIn>org.spigotmc:minecraft-server:1.18.2-R0.1-SNAPSHOT:csrg:maps-spigot</srgIn>
-                            <remappedDependencies>org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT:jar:remapped-obf</remappedDependencies>
                         </configuration>
                     </execution>
                 </executions>
@@ -95,17 +60,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-            <classifier>remapped-mojang</classifier>
         </dependency>
         <dependency>
             <groupId>me.frap.vulcan</groupId>
@@ -141,7 +99,7 @@
         <dependency>
             <groupId>com.github.retrooper</groupId>
             <artifactId>packetevents-spigot</artifactId>
-            <version>2.9.5</version>
+            <version>2.11.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

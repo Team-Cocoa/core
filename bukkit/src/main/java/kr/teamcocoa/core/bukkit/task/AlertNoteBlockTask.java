@@ -26,8 +26,8 @@ public class AlertNoteBlockTask extends BukkitRunnable {
             cancel();
             return;
         }
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 100F);
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 13F, 100F);
+        player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 100F);
+        player.playSound(player.getLocation(), Sound.NOTE_PLING, 13F, 100F);
         i++;
     }
 
