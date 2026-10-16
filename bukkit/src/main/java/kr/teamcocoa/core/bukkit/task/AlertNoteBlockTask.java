@@ -1,5 +1,6 @@
 package kr.teamcocoa.core.bukkit.task;
 
+import kr.teamcocoa.core.bukkit.main.BukkitCoreBootstrap;
 import lombok.Getter;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -26,8 +27,9 @@ public class AlertNoteBlockTask extends BukkitRunnable {
             cancel();
             return;
         }
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1F, 100F);
-        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 13F, 100F);
+        Sound sound = BukkitCoreBootstrap.getVersionAdapter().getNoteBlockPlingSound();
+        player.playSound(player.getLocation(), sound, 1F, 100F);
+        player.playSound(player.getLocation(), sound, 13F, 100F);
         i++;
     }
 

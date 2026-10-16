@@ -2,9 +2,15 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
+java {
+    disableAutoTargetJvm()
+}
+
 dependencies {
     implementation(project(":core"))
     implementation(project(":bukkit"))
+    implementation(project(":bukkit-legacy"))
+    implementation(project(":bukkit-modern"))
     implementation(project(":bungee"))
     implementation(project(":retrofit"))
     implementation(project(":cloudnet"))
@@ -12,9 +18,17 @@ dependencies {
 
 tasks.shadowJar {
     archiveFileName = "TeamCocoa-Core.jar"
+    mergeServiceFiles()
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    filesNotMatching("META-INF/services/**") {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
     relocate("com.github.retrooper.packetevents", "kr.teamcocoa.core.bukkit.packetevents.api")
     relocate("io.github.retrooper.packetevents", "kr.teamcocoa.core.bukkit.packetevents.impl")
-    relocate("com.squareup.retrofit2", "kr.teamcocoa.core.retrofit.impl")
+    relocate("retrofit2", "kr.teamcocoa.core.retrofit.impl.retrofit2")
+    relocate("okhttp3", "kr.teamcocoa.core.retrofit.impl.okhttp3")
+    relocate("okio", "kr.teamcocoa.core.retrofit.impl.okio")
+    relocate("kotlin", "kr.teamcocoa.core.retrofit.impl.kotlin")
 }
 
 tasks.jar {

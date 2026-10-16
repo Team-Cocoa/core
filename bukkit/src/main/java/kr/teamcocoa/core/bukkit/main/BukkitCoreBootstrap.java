@@ -2,6 +2,7 @@ package kr.teamcocoa.core.bukkit.main;
 
 
 import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import dev.derklaro.aerogel.Inject;
 import dev.derklaro.aerogel.Singleton;
 import eu.cloudnetservice.driver.event.EventManager;
@@ -12,6 +13,8 @@ import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import eu.cloudnetservice.wrapper.configuration.WrapperConfiguration;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
+import kr.teamcocoa.core.bukkit.version.BukkitVersionAdapter;
+import kr.teamcocoa.core.bukkit.version.BukkitVersionAdapterProvider;
 import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
 import kr.teamcocoa.core.cloudnet.utils.CloudNetServiceUtils;
 import kr.teamcocoa.core.config.StringConfig;
@@ -21,6 +24,8 @@ import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ServiceLoader;
 
 @Singleton
 @PlatformPlugin(
@@ -50,6 +55,9 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     @Getter
     private static WrapperConfiguration wrapperConfiguration;
 
+    @Getter
+    private static BukkitVersionAdapter versionAdapter;
+
     @Inject
     BukkitCoreBootstrap(
             @NonNull JavaPlugin plugin,
@@ -71,6 +79,7 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
         CloudNetServiceUtils.setInitServiceName(wrapperConfiguration);
 
         loadPacketEvents();
+        loadVersionAdapter();
         loadListeners();
 
         getInstance().getServer().getMessenger().registerOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
@@ -97,6 +106,17 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
         PacketEvents.getAPI().init();
     }
 
+    private void loadVersionAdapter() {
+        ServerVersion serverVersion = PacketEvents.getAPI().getServerManager().getVersion();
+        for (BukkitVersionAdapterProvider provider : ServiceLoader.load(BukkitVersionAdapterProvider.class, getClass().getClassLoader())) {
+            if (provider.isSupported(serverVersion)) {
+                versionAdapter = provider.create();
+                return;
+            }
+        }
+        throw new IllegalStateException("Unsupported server version: " + serverVersion.getReleaseName());
+    }
+
     private void loadListeners() {
         pluginManager.registerEvents(new AntiCheatListener(), instance);
 
@@ -104,6 +124,6 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     }
 
     public double[] getTPS() {
-        return Bukkit.getTPS();
+        return versionAdapter.getTPS();
     }
 }
