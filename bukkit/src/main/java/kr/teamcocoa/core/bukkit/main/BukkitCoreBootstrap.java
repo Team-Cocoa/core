@@ -13,6 +13,11 @@ import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import eu.cloudnetservice.wrapper.configuration.WrapperConfiguration;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
+import kr.teamcocoa.core.bukkit.listeners.PluginDisableListener;
+import kr.teamcocoa.core.bukkit.listeners.RankListener;
+import kr.teamcocoa.core.bukkit.menu.MenuListener;
+import kr.teamcocoa.core.bukkit.rank.ChatFormatService;
+import kr.teamcocoa.core.bukkit.rank.RankService;
 import kr.teamcocoa.core.bukkit.version.BukkitVersionAdapter;
 import kr.teamcocoa.core.bukkit.version.BukkitVersionAdapterProvider;
 import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
@@ -80,6 +85,7 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
 
         loadPacketEvents();
         loadVersionAdapter();
+        loadConfig();
         loadListeners();
 
         getInstance().getServer().getMessenger().registerOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
@@ -117,8 +123,18 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
         throw new IllegalStateException("Unsupported server version: " + serverVersion.getReleaseName());
     }
 
+    private void loadConfig() {
+        instance.saveDefaultConfig();
+        instance.reloadConfig();
+        RankService.load(instance.getConfig());
+        ChatFormatService.load(instance.getConfig().getConfigurationSection("chat"));
+    }
+
     private void loadListeners() {
         pluginManager.registerEvents(new AntiCheatListener(), instance);
+        pluginManager.registerEvents(new PluginDisableListener(), instance);
+        pluginManager.registerEvents(new MenuListener(), instance);
+        pluginManager.registerEvents(new RankListener(), instance);
 
         cloudnetEventManager.registerListener(new CloudNetEventManager());
     }

@@ -54,4 +54,22 @@ public class ItemUtils {
         return BukkitCoreBootstrap.getVersionAdapter().displayNameEquals(itemMeta, StringUtils.color(title));
     }
 
+    public static ItemStack tag(ItemStack itemStack, String tag) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        BukkitCoreBootstrap.getVersionAdapter().setItemTag(itemMeta, tag);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public static String getTag(ItemStack itemStack) {
+        if (itemStack == null || !itemStack.hasItemMeta()) {
+            return null;
+        }
+        return BukkitCoreBootstrap.getVersionAdapter().getItemTag(itemStack.getItemMeta());
+    }
+
+    public static boolean hasTag(ItemStack itemStack, String tag) {
+        return tag.equals(getTag(itemStack));
+    }
+
 }

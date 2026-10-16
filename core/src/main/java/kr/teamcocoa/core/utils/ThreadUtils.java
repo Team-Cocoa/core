@@ -15,13 +15,17 @@ public class ThreadUtils {
 
     public static ThreadPoolExecutor getThreadPool(int maximum, long keepAliveTime, TimeUnit unit, String poolName) {
 
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(1, maximum, keepAliveTime, unit, new LinkedBlockingQueue<>(maximum));
-
         ThreadFactory factory = new ThreadFactoryBuilder().setNameFormat("Cocoa-" + poolName + "-%d").build();
 
-        pool.setThreadFactory(factory);
+        // ThreadPoolExecutor only grows past the core size when the queue is full, so with an
+        // unbounded queue the core size has to be the maximum
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(maximum, maximum, keepAliveTime, unit, new LinkedBlockingQueue<>(), factory);
+
+        if (keepAliveTime > 0) {
+            pool.allowCoreThreadTimeOut(true);
+        }
 
         return pool;
     }
-    
+
 }

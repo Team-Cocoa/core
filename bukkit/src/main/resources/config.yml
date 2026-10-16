@@ -1,0 +1,17 @@
+# Network-wide ranks. A player gets the rank with the lowest sort-id whose permission they have,
+# otherwise default-rank. permission defaults to teamcocoa.rank.<name>.
+# prefix and suffix are limited to 16 characters on 1.8 servers.
+default-rank: default
+ranks:
+  default:
+    sort-id: 999
+    prefix: "&7"
+    display: "&7"
+    suffix: ""
+
+# Chat format applied by core. Placeholders: {tag} {prefix} {display} {suffix} {name} {message}
+# {tag} comes from the game plugin (ChatFormatService.setTagProvider).
+chat:
+  enabled: false
+  format: "{tag}{prefix}{name} &8> &f{message}"
+  color-permission: teamcocoa.premium

@@ -25,10 +25,7 @@ tasks.shadowJar {
     }
     relocate("com.github.retrooper.packetevents", "kr.teamcocoa.core.bukkit.packetevents.api")
     relocate("io.github.retrooper.packetevents", "kr.teamcocoa.core.bukkit.packetevents.impl")
-    relocate("retrofit2", "kr.teamcocoa.core.retrofit.impl.retrofit2")
-    relocate("okhttp3", "kr.teamcocoa.core.retrofit.impl.okhttp3")
-    relocate("okio", "kr.teamcocoa.core.retrofit.impl.okio")
-    relocate("kotlin", "kr.teamcocoa.core.retrofit.impl.kotlin")
+    relocate("kotlin", "kr.teamcocoa.core.libs.kotlin")
 }
 
 tasks.jar {

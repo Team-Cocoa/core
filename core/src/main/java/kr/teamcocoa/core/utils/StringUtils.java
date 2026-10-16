@@ -10,7 +10,8 @@ import java.util.TimeZone;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtils {
 
-    public static final String TEAMCOCOA_API_KEY = "F824047CDF49B138D1990B4DA178A16D45CE2CC7DBDDDCA02CE5AB6BD8733A8F2CAB22F298484F110D3E93A02F3A73BA49C102131C8DCCD83AB3AE2EF9F413BA";
+    private static final int[] ROMAN_VALUES = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    private static final String[] ROMAN_SYMBOLS = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
     public static String color(String string) {
         char[] b = string.toCharArray();
@@ -37,6 +38,20 @@ public class StringUtils {
         String minute = "0" + sec / 60;
         String second = "0" + sec % 60;
         return minute.substring(minute.length() - 2) + ":" + second.substring(second.length() - 2);
+    }
+
+    public static String toRoman(int number) {
+        if (number < 1 || number > 3999) {
+            throw new IllegalArgumentException("Roman numerals only cover 1 to 3999: " + number);
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < ROMAN_VALUES.length; i++) {
+            while (number >= ROMAN_VALUES[i]) {
+                builder.append(ROMAN_SYMBOLS[i]);
+                number -= ROMAN_VALUES[i];
+            }
+        }
+        return builder.toString();
     }
 
 }

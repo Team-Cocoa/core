@@ -10,4 +10,4 @@ Minecraft spigot, bungeecord plugin for teamcocoa core system
 - No CraftBukkit class use
 - Do not add comments logic is non-obvious
 - Use PacketEvents for packet modification
-- Use PacketEvents from (kr.teamcocoa.core.bukkit.packetevents)
+- Use PacketEvents from (kr.teamcocoa.core.bukkit.packetevents)[changes.md](docs/changes.md)[changes.md](docs/changes.md)
