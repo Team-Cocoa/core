@@ -15,9 +15,6 @@ import kr.teamcocoa.core.bungee.listener.*;
 import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
 import kr.teamcocoa.core.cloudnet.utils.CloudNetServiceUtils;
 import kr.teamcocoa.core.config.StringConfig;
-import kr.teamcocoa.core.mongo.MongoDB;
-import kr.teamcocoa.core.mysql.MySQLManager;
-import kr.teamcocoa.core.mysql.pool.ConnectionPoolManager;
 import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
@@ -74,8 +71,6 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
 
         CloudNetServiceUtils.setInitServiceName(wrapperConfiguration);
 
-        loadDatabases();
-
         instance.getProxy().registerChannel(StringConfig.MESSAGE_CHANNEL);
         pluginManager.registerListener(instance, new PluginMessageListener());
         pluginManager.registerListener(instance, new ChatListener());
@@ -95,23 +90,6 @@ public class BungeeCoreBootstrap implements PlatformEntrypoint {
     @Override
     public void onDisable() {
         instance.getProxy().unregisterChannel(StringConfig.MESSAGE_CHANNEL);
-
-        disconnectDatabases();
     }
 
-    private void loadDatabases() {
-        MySQLManager.startKeepAlive();
-        ConnectionPoolManager.startKeepAlive();
-
-        MongoDB.connectDatabase();
-    }
-
-    private void disconnectDatabases() {
-        MySQLManager.stopKeepAlive();
-        MySQLManager.disconnectAllConnections();
-        ConnectionPoolManager.stopKeepAlive();
-        ConnectionPoolManager.disconnectAllConnections();
-
-        MongoDB.disconnectDatabase();
-    }
 }

@@ -13,9 +13,6 @@ import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
 import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
 import kr.teamcocoa.core.cloudnet.utils.CloudNetServiceUtils;
 import kr.teamcocoa.core.config.StringConfig;
-import kr.teamcocoa.core.mongo.MongoDB;
-import kr.teamcocoa.core.mysql.MySQLManager;
-import kr.teamcocoa.core.mysql.pool.ConnectionPoolManager;
 import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
@@ -72,7 +69,6 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
 
         CloudNetServiceUtils.setInitServiceName(wrapperConfiguration);
 
-        loadDatabases();
         loadListeners();
 
         getInstance().getServer().getMessenger().registerOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
@@ -90,29 +86,12 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     @Override
     public void onDisable() {
         getInstance().getServer().getMessenger().unregisterOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
-        disconnectDatabases();
     }
 
     private void loadListeners() {
         pluginManager.registerEvents(new AntiCheatListener(), instance);
 
         cloudnetEventManager.registerListener(new CloudNetEventManager());
-    }
-
-    private void loadDatabases() {
-        MySQLManager.startKeepAlive();
-        ConnectionPoolManager.startKeepAlive();
-
-        MongoDB.connectDatabase();
-    }
-
-    private void disconnectDatabases() {
-        MySQLManager.stopKeepAlive();
-        MySQLManager.disconnectAllConnections();
-        ConnectionPoolManager.stopKeepAlive();
-        ConnectionPoolManager.disconnectAllConnections();
-
-        MongoDB.disconnectDatabase();
     }
 
     public double[] getTPS() {

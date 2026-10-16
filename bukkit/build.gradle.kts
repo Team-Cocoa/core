@@ -11,8 +11,6 @@ dependencies {
     compileOnly(variantOf(libs.spigot.mojang) { classifier("remapped-mojang") })
     compileOnly(files("libs/VulcanAPI.jar"))
     compileOnly(project(":core"))
-    compileOnly(project(":mysql"))
-    compileOnly(project(":mongo"))
     compileOnly(project(":cloudnet"))
     api(libs.packetevents.spigot)
 

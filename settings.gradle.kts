@@ -5,8 +5,6 @@ include(
     "cloudnet",
     "bukkit",
     "bungee",
-    "mysql",
-    "mongo",
     "retrofit",
     "jar",
 )
