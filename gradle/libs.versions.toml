@@ -1,6 +1,5 @@
 [versions]
 cloudnet = "4.0.0-RC9"
-minecraft = "1.18.2-R0.1-SNAPSHOT"
 retrofit = "2.11.0"
 junit = "5.11.4"
 
@@ -15,11 +14,9 @@ gson = { module = "com.google.code.gson:gson", version = "2.9.1" }
 guava = { module = "com.google.guava:guava", version = "31.0.1-jre" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-paper-api = { module = "io.papermc.paper:paper-api", version.ref = "minecraft" }
-spigot-mojang = { module = "org.spigotmc:spigot", version.ref = "minecraft" }
+paper-api = { module = "io.papermc.paper:paper-api", version = "1.18.2-R0.1-SNAPSHOT" }
 packetevents-spigot = { module = "com.github.retrooper:packetevents-spigot", version = "2.9.5" }
 bungeecord-api = { module = "net.md-5:bungeecord-api", version = "1.20-R0.2" }
-specialsource = { module = "net.md-5:SpecialSource", version = "1.11.4" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }

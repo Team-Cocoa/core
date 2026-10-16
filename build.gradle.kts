@@ -12,12 +12,6 @@ allprojects {
         maven("https://central.sonatype.com/repository/maven-snapshots/")
         maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://repo.codemc.io/repository/maven-releases/")
-        maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-        mavenLocal {
-            content {
-                includeGroup("org.spigotmc")
-            }
-        }
     }
 }
 

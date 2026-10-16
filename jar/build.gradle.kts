@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     implementation(project(":core"))
-    implementation(project(":bukkit", "remapped"))
+    implementation(project(":bukkit"))
     implementation(project(":bungee"))
     implementation(project(":retrofit"))
     implementation(project(":cloudnet"))

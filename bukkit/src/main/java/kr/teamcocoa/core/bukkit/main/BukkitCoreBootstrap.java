@@ -1,6 +1,7 @@
 package kr.teamcocoa.core.bukkit.main;
 
 
+import com.github.retrooper.packetevents.PacketEvents;
 import dev.derklaro.aerogel.Inject;
 import dev.derklaro.aerogel.Singleton;
 import eu.cloudnetservice.driver.event.EventManager;
@@ -9,6 +10,7 @@ import eu.cloudnetservice.ext.platforminject.api.PlatformEntrypoint;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.Dependency;
 import eu.cloudnetservice.ext.platforminject.api.stereotype.PlatformPlugin;
 import eu.cloudnetservice.wrapper.configuration.WrapperConfiguration;
+import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import kr.teamcocoa.core.bukkit.listeners.AntiCheatListener;
 import kr.teamcocoa.core.cloudnet.listeners.CloudNetEventManager;
 import kr.teamcocoa.core.cloudnet.utils.CloudNetServiceUtils;
@@ -16,7 +18,6 @@ import kr.teamcocoa.core.config.StringConfig;
 import kr.teamcocoa.core.utils.AsyncDetector;
 import lombok.Getter;
 import lombok.NonNull;
-import net.minecraft.server.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -69,6 +70,7 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
 
         CloudNetServiceUtils.setInitServiceName(wrapperConfiguration);
 
+        loadPacketEvents();
         loadListeners();
 
         getInstance().getServer().getMessenger().registerOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
@@ -86,6 +88,13 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     @Override
     public void onDisable() {
         getInstance().getServer().getMessenger().unregisterOutgoingPluginChannel(getInstance(), StringConfig.MESSAGE_CHANNEL);
+        PacketEvents.getAPI().terminate();
+    }
+
+    private void loadPacketEvents() {
+        PacketEvents.setAPI(SpigotPacketEventsBuilder.build(instance));
+        PacketEvents.getAPI().load();
+        PacketEvents.getAPI().init();
     }
 
     private void loadListeners() {
@@ -95,6 +104,6 @@ public class BukkitCoreBootstrap implements PlatformEntrypoint {
     }
 
     public double[] getTPS() {
-        return MinecraftServer.getServer().recentTps;
+        return Bukkit.getTPS();
     }
 }
